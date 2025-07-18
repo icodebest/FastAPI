@@ -7,3 +7,4 @@ D----> Delete
 
        HTTP
 client<------>server
+client makes a http request to the server 
