@@ -1,0 +1,9 @@
+CRUD Operation--->
+C--->Create 
+R----> Retieve
+U---->Update
+D----> Delete
+
+
+       HTTP
+client<------>server
