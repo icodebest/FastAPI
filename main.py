@@ -1,28 +1,27 @@
-import uvicorn
-from fastapi import FastAPI , Path
+from fastapi import FastAPI
+import json
+import os
+
 app = FastAPI()
-# @app.get("/")
-# async def index():
-#    return {"message": "Hello World"}
-# @app.get("/hello/{name}/{age}/{city}")
-# async def hello(name,age,city):
-#    return {
-#        "message": f"Hello {name}, you are {age} years old and lives in {city}."
-#    }
 
-# @app.get("/greet")
-# async def greet(name: str = "Guest"):
-#     return {"message": f"Hello, {name}!"}
+def load_data():
+    file_path = 'patient.json'
+    if not os.path.exists(file_path):
+        return {"error": "patient.json not found"}
+    
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+    return data
 
-@app.get("/hello/{name}")
-async def hello(name:str=Path(...,
-    title="Name",
-    description="The name of the person to greet",
-    min_length=3,
-    max_length=10
-)):
-    return {"message": f"Hello, {name}!"}
+@app.get("/")
+def hello():
+    return {"message": "Patient Management System API"}
 
+@app.get("/about")
+def about():
+    return {"message": "A fully functional API for managing patient data"}
 
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+@app.get("/view")
+def view():
+    data = load_data()
+    return {"data": data}
